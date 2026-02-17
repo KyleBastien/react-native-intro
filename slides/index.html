@@ -1,0 +1,776 @@
+<!doctype html>
+<html lang="en">
+	<head>
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
+		<title>Introduction to React Native with TypeScript</title>
+
+		<link rel="stylesheet" href="dist/reset.css">
+		<link rel="stylesheet" href="dist/reveal.css">
+		<link rel="stylesheet" href="dist/theme/black.css">
+
+		<!-- Theme used for syntax highlighted code -->
+		<link rel="stylesheet" href="plugin/highlight/monokai.css">
+
+		<style>
+			@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700&display=swap');
+
+			.reveal {
+				font-family: 'Montserrat', sans-serif;
+			}
+			.reveal h1, .reveal h2, .reveal h3 {
+				font-family: 'Montserrat', sans-serif;
+				text-transform: none;
+			}
+			.reveal .slides section {
+				text-align: left;
+			}
+			.reveal ul {
+				font-size: 0.75em;
+				line-height: 1.6;
+			}
+			.reveal ul ul {
+				font-size: 0.9em;
+			}
+			.reveal pre {
+				width: 100%;
+				font-size: 0.48em;
+			}
+			.reveal pre code {
+				max-height: 500px;
+				padding: 16px;
+			}
+			.intro-grid {
+				display: flex;
+				align-items: flex-start;
+				gap: 40px;
+			}
+			.intro-grid img {
+				border-radius: 12px;
+				width: 220px;
+			}
+			.highlight-green {
+				color: #4CAF50;
+			}
+			.highlight-blue {
+				color: #42A5F5;
+			}
+			.highlight-yellow {
+				color: #FFCA28;
+			}
+			section.center-slide {
+				text-align: center;
+			}
+			section.center-slide h1,
+			section.center-slide h2,
+			section.center-slide p {
+				text-align: center;
+			}
+			.reveal {
+				background-color: #44A0DD;
+			}
+		</style>
+	</head>
+	<body>
+		<div class="reveal">
+			<div class="slides">
+
+				<!-- ============ TITLE SLIDE ============ -->
+				<section class="center-slide">
+					<h1>Introduction to React Native</h1>
+					<h2 style="font-size: 0.7em;">with TypeScript</h2>
+					<p style="font-size: 0.9em;">By Kyle Bastien</p>
+				</section>
+
+				<!-- ============ INTRO / ABOUT ME ============ -->
+				<section>
+					<h2>Hi!</h2>
+					<div class="intro-grid">
+						<ul>
+							<li>Kyle Bastien</li>
+							<li>Senior Engineering Manager at PushPress</li>
+							<li>B.S. in Computer Science from Cal Poly Pomona</li>
+							<li>M.S. in Software Engineering from Seattle U</li>
+							<li>Worked on Web Applications since ~2012</li>
+							<li>Worked on Mobile Applications since ~2016</li>
+						</ul>
+						<img src="https://s3.amazonaws.com/media-p.slid.es/uploads/803167/images/4430642/15055754_10154893949331178_7101370806905274713_n.jpg" alt="Kyle Bastien" />
+					</div>
+				</section>
+
+				<!-- ============ AGENDA ============ -->
+				<section>
+					<h2>Today We're Learning...</h2>
+					<ul>
+						<li>What is React Native?</li>
+						<li>The Development Environment (Expo)</li>
+						<li>Core React Concepts (JSX, Components, Props, State)</li>
+						<li>React Native Building Blocks</li>
+						<li>Hands-On: Building a To-Do List App</li>
+					</ul>
+					<aside class="notes">
+						This is a ~1 hour 45 minute session. About 55 minutes of concepts, then 45 minutes of hands-on coding, and a 5 minute wrap-up.
+						Audience has basic JavaScript, some web experience, some Java experience, but no React experience.
+					</aside>
+				</section>
+
+				<!-- ============ PART 1: CONCEPTS ============ -->
+				<section class="center-slide">
+					<h1>Part 1</h1>
+					<h2 style="font-size: 0.7em;">Concepts &amp; Foundations</h2>
+				</section>
+
+				<!-- ---- 1.1 What is React Native? ---- -->
+				<section>
+					<h2>What is React Native?</h2>
+					<ul>
+						<li>Traditional mobile dev requires <strong>separate codebases</strong> — Swift/Obj-C for iOS, Kotlin/Java for Android</li>
+						<li>React Native lets you write <strong>one codebase</strong> in JavaScript/TypeScript that runs on both platforms</li>
+						<li>It renders <em>native</em> UI components — not a web view (unlike Cordova/Ionic)</li>
+					</ul>
+					<aside class="notes">
+						The key takeaway here is that React Native gives you native performance and native UI, not a web page crammed into a phone. A JavaScript thread communicates with native platform modules through a bridge architecture.
+					</aside>
+				</section>
+
+				<section>
+					<h2>How Does It Work?</h2>
+					<ul>
+						<li>A JavaScript thread communicates with native platform modules through a <strong>bridge architecture</strong></li>
+						<li>Your TypeScript code describes <em>what</em> the UI should look like</li>
+						<li>React Native translates that into real native views</li>
+					</ul>
+					<aside class="notes">
+						Think of it like a translator — you speak JavaScript, the phone speaks native, and the bridge does the translating in real time.
+					</aside>
+				</section>
+
+				<section>
+					<h2>React Native vs. React (Web)</h2>
+					<ul>
+						<li><strong>React for the web</strong> renders to HTML elements (<code>&lt;div&gt;</code>, <code>&lt;span&gt;</code>, <code>&lt;input&gt;</code>)</li>
+						<li><strong>React Native</strong> renders to platform-native components (<code>&lt;View&gt;</code>, <code>&lt;Text&gt;</code>, <code>&lt;TextInput&gt;</code>)</li>
+						<li>Core concepts are the <strong>same</strong> — components, state, props, JSX</li>
+						<li>The <strong>render targets</strong> differ</li>
+					</ul>
+					<aside class="notes">
+						If anyone has used React for the web before, this should feel very familiar. The mental model is the same, you just swap out the building blocks.
+					</aside>
+				</section>
+
+				<section>
+					<h2>Who Uses React Native?</h2>
+					<ul>
+						<li>Meta (Facebook, Instagram)</li>
+						<li>Microsoft (Outlook, Xbox)</li>
+						<li>Shopify</li>
+						<li>Discord</li>
+						<li>...and many more</li>
+					</ul>
+					<aside class="notes">
+						These are all massive production apps that millions of people use every day. React Native is battle-tested at scale.
+					</aside>
+				</section>
+
+				<section>
+					<h2>Why TypeScript?</h2>
+					<ul>
+						<li>Adds <strong>static typing</strong> on top of JavaScript — catches errors at compile time rather than runtime</li>
+						<li>Provides autocompletion and better tooling in editors like VS Code</li>
+						<li>Industry standard for large-scale React and React Native projects</li>
+					</ul>
+					<aside class="notes">
+						Think of TypeScript as JavaScript with guardrails. You still write JavaScript, but TypeScript yells at you before your code blows up at runtime. For anyone who has used Java, the type system will feel familiar.
+					</aside>
+				</section>
+
+				<!-- ---- 1.2 The Development Environment ---- -->
+				<section>
+					<h2>What is Expo?</h2>
+					<ul>
+						<li>A framework and platform built around React Native that <strong>simplifies setup</strong>, building, and deploying</li>
+						<li>Removes the need to install Xcode or Android Studio just to get started</li>
+						<li>Provides the <strong>Expo Go</strong> app — scan a QR code on your phone and instantly preview your app</li>
+					</ul>
+					<aside class="notes">
+						Expo is the reason we can get started in minutes instead of spending an hour setting up SDKs and emulators. It's like a cheat code for mobile development.
+					</aside>
+				</section>
+
+				<section>
+					<h2>Expo vs. Bare React Native CLI</h2>
+					<ul>
+						<li><strong>Expo:</strong> faster setup, managed workflow, great for learning and prototyping</li>
+						<li><strong>Bare CLI:</strong> more control, required for deep native module customization</li>
+						<li>You can always "eject" from Expo later if you need full native access</li>
+					</ul>
+					<aside class="notes">
+						For what we're doing today, Expo is the way to go. In production, many companies start with Expo and only eject when they hit a wall that requires deep native access.
+					</aside>
+				</section>
+
+				<section>
+					<h2>Prerequisites &amp; Tooling</h2>
+					<ul>
+						<li><strong>Node.js</strong> (LTS version)</li>
+						<li>A code editor (<strong>VS Code</strong> recommended)</li>
+						<li>A physical device with <strong>Expo Go</strong> installed, <em>or</em> an iOS/Android emulator</li>
+					</ul>
+					<aside class="notes">
+						Make sure everyone has Node.js installed and Expo Go downloaded on their phones before we start the hands-on portion.
+					</aside>
+				</section>
+
+				<section>
+					<h2>Creating a New Project</h2>
+					<pre><code class="language-bash" data-line-numbers>npx create-expo-app@latest MyApp --template blank-typescript</code></pre>
+					<ul>
+						<li><code>App.tsx</code> — the entry point of the application</li>
+						<li><code>package.json</code> — dependencies and scripts</li>
+						<li><code>tsconfig.json</code> — TypeScript configuration</li>
+						<li><code>node_modules/</code> — installed packages</li>
+					</ul>
+					<aside class="notes">
+						Walk through the generated folder structure here. This should feel familiar to anyone who's used npm before.
+					</aside>
+				</section>
+
+				<section>
+					<h2>Running the App</h2>
+					<pre><code class="language-bash" data-line-numbers>npx expo start</code></pre>
+					<ul>
+						<li>Scan the QR code with Expo Go (Android) or the Camera app (iOS)</li>
+						<li><strong>Hot reloading:</strong> save a file and see changes instantly on the device</li>
+					</ul>
+					<aside class="notes">
+						This is one of the best developer experience features of React Native — you don't have to wait for a full recompile like you would in native Android/iOS development.
+					</aside>
+				</section>
+
+				<!-- ---- 1.3 Core React Concepts ---- -->
+				<section class="center-slide">
+					<h2>Core React Concepts</h2>
+					<p style="font-size: 0.7em;">These apply to both React (web) and React Native.<br>Understanding them is essential before building anything.</p>
+				</section>
+
+				<section>
+					<h2>JSX / TSX</h2>
+					<ul>
+						<li>A syntax extension that lets you write <strong>UI markup</strong> directly in your TypeScript files</li>
+						<li>Looks like HTML but compiles to function calls under the hood</li>
+						<li>With TypeScript, files use the <code>.tsx</code> extension</li>
+					</ul>
+					<aside class="notes">
+						JSX can feel weird at first — mixing HTML-like syntax with JavaScript. But once it clicks, it's incredibly productive.
+					</aside>
+				</section>
+
+				<section>
+					<h2>JSX — Key Differences from HTML</h2>
+					<ul>
+						<li>Uses <code>className</code> instead of <code>class</code> (web React); in React Native you use a <code>style</code> prop</li>
+						<li>All tags must be closed (e.g., <code>&lt;Image /&gt;</code>, not <code>&lt;img&gt;</code>)</li>
+						<li>JavaScript expressions are embedded inside curly braces <code>{}</code></li>
+					</ul>
+					<aside class="notes">
+						If you've written HTML before, these differences are small but important. The curly braces are how you inject dynamic data into your UI.
+					</aside>
+				</section>
+
+				<section>
+					<h2>Components</h2>
+					<ul>
+						<li>A <strong>reusable, self-contained piece of UI</strong></li>
+						<li>Think of it like a custom building block — define it once, use it anywhere</li>
+						<li>Similar to classes in Java: encapsulation of behavior and presentation</li>
+					</ul>
+					<aside class="notes">
+						Components are the fundamental building block of React. Everything you see on screen is a component — or a component made up of other components.
+					</aside>
+				</section>
+
+				<section>
+					<h2>Functional Components</h2>
+					<p style="font-size: 0.7em;">A component is just a TypeScript function that returns JSX:</p>
+					<pre><code class="language-tsx" data-line-numbers>const Greeting = () => {
+  return <Text>Hello, World!</Text>;
+};</code></pre>
+					<ul>
+						<li>Components can contain other components, building a <strong>tree structure</strong></li>
+						<li>Break complex UIs into small, manageable pieces</li>
+					</ul>
+					<aside class="notes">
+						This is the modern standard — functional components. You might see class-based components in older tutorials, but functional components with hooks are the way to go.
+					</aside>
+				</section>
+
+				<section>
+					<h2>Props</h2>
+					<ul>
+						<li>Short for "properties" — how you pass data <strong>into</strong> a component from its parent</li>
+						<li>Similar to function parameters or constructor arguments in Java</li>
+						<li>Props are <strong>read-only</strong> — a component should never modify its own props</li>
+					</ul>
+					<aside class="notes">
+						Think of props like arguments to a function. The parent says "hey, your name is Kyle" and the child component just uses that value.
+					</aside>
+				</section>
+
+				<section>
+					<h2>Typing Props with TypeScript</h2>
+					<pre><code class="language-tsx" data-line-numbers>interface GreetingProps {
+  name: string;
+}
+
+const Greeting = ({ name }: GreetingProps) => {
+  return <Text>Hello, {name}!</Text>;
+};</code></pre>
+					<ul>
+						<li>TypeScript will warn you if you forget required props or pass the wrong type</li>
+					</ul>
+					<aside class="notes">
+						This is where TypeScript really shines. If someone tries to pass a number where a string is expected, they get an error before anything even runs.
+					</aside>
+				</section>
+
+				<section>
+					<h2>State</h2>
+					<ul>
+						<li>Data that a component <strong>owns</strong> and can <strong>change</strong> over time</li>
+						<li>When state changes, the component <strong>re-renders</strong> to reflect the new data</li>
+						<li>Props come from the parent; state is internal to the component</li>
+					</ul>
+					<aside class="notes">
+						Props are like your name — someone else gives it to you. State is like your mood — it's yours and it changes.
+					</aside>
+				</section>
+
+				<section>
+					<h2>The <code>useState</code> Hook</h2>
+					<pre><code class="language-tsx" data-line-numbers>const [count, setCount] = useState&lt;number&gt;(0);</code></pre>
+					<ul>
+						<li><code>count</code> is the current value</li>
+						<li><code>setCount</code> is the function to update it</li>
+						<li>React re-renders the component every time <code>setCount</code> is called with a new value</li>
+					</ul>
+					<aside class="notes">
+						Never mutate state directly — e.g., count++ is wrong. Always use the setter function so React knows something changed. This is a common beginner mistake.
+					</aside>
+				</section>
+
+				<!-- ---- 1.4 React Native Building Blocks ---- -->
+				<section class="center-slide">
+					<h2>React Native Building Blocks</h2>
+				</section>
+
+				<section>
+					<h2>Core Components</h2>
+					<ul>
+						<li><code>&lt;View&gt;</code> — the most fundamental container, like a <code>&lt;div&gt;</code> in HTML</li>
+						<li><code>&lt;Text&gt;</code> — displays text; all text <em>must</em> be inside a <code>&lt;Text&gt;</code> component</li>
+						<li><code>&lt;TextInput&gt;</code> — an input field (<code>value</code>, <code>onChangeText</code>, <code>placeholder</code>)</li>
+						<li><code>&lt;ScrollView&gt;</code> — a scrollable container for bounded content</li>
+					</ul>
+					<aside class="notes">
+						If you're coming from HTML, View is div, Text is span/p, TextInput is input. The big difference is that all visible text MUST be wrapped in a Text component or the app will crash.
+					</aside>
+				</section>
+
+				<section>
+					<h2>More Core Components</h2>
+					<ul>
+						<li><code>&lt;FlatList&gt;</code> — efficiently renders large, scrollable lists (virtualized)</li>
+						<li><code>&lt;TouchableOpacity&gt;</code> / <code>&lt;Pressable&gt;</code> — makes elements respond to taps</li>
+						<li><code>&lt;Image&gt;</code> — displays images from local assets or remote URLs</li>
+					</ul>
+					<aside class="notes">
+						FlatList is one of the most important components — it only renders what's visible on screen, so it's performant even with thousands of items. We'll use it in our To-Do app.
+					</aside>
+				</section>
+
+				<section>
+					<h2>Styling in React Native</h2>
+					<ul>
+						<li><strong>No CSS files</strong> — styles are written in JavaScript/TypeScript objects</li>
+						<li>Use <code>StyleSheet.create()</code> for optimized style objects</li>
+						<li>Property names are <strong>camelCase</strong> (<code>backgroundColor</code> not <code>background-color</code>)</li>
+						<li>Dimensions are unitless numbers (density-independent pixels)</li>
+					</ul>
+					<aside class="notes">
+						This is one of the bigger adjustments for people coming from web development. No CSS files, no class names — everything is in JavaScript objects.
+					</aside>
+				</section>
+
+				<section>
+					<h2>StyleSheet Example</h2>
+					<pre><code class="language-tsx" data-line-numbers>const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    padding: 16,
+    backgroundColor: '#fff',
+  },
+});</code></pre>
+					<aside class="notes">
+						StyleSheet.create is optional but recommended — it validates your styles at creation time and can provide performance optimizations.
+					</aside>
+				</section>
+
+				<section>
+					<h2>Flexbox Layout</h2>
+					<ul>
+						<li>React Native uses <strong>Flexbox for all layout</strong> — no floats, no grid, no <code>display: block/inline</code></li>
+						<li>Default <code>flexDirection</code> is <code>column</code> (top to bottom), unlike CSS which defaults to <code>row</code></li>
+						<li>Key properties: <code>flex</code>, <code>flexDirection</code>, <code>justifyContent</code>, <code>alignItems</code></li>
+					</ul>
+					<aside class="notes">
+						If you know CSS Flexbox, great — it works mostly the same way, just remember the default direction is column not row. If you don't know Flexbox, think of it like stacking boxes either vertically or horizontally.
+					</aside>
+				</section>
+
+				<!-- ============ PART 2: HANDS-ON ============ -->
+				<section class="center-slide">
+					<h1>Part 2</h1>
+					<h2 style="font-size: 0.7em;">Hands-On: To-Do List App 📝</h2>
+				</section>
+
+				<!-- ---- 2.1 Project Setup ---- -->
+				<section>
+					<h2>Project Setup</h2>
+					<pre><code class="language-bash" data-line-numbers>npx create-expo-app@latest TodoApp --template blank-typescript
+cd TodoApp
+npx expo start</code></pre>
+					<ul>
+						<li>Scan the QR code and confirm you see the default screen</li>
+						<li>Then we'll clean up <code>App.tsx</code></li>
+					</ul>
+					<aside class="notes">
+						Give students a few minutes to get this running. Walk around and help anyone who is stuck. They should see the default Expo welcome screen on their devices.
+					</aside>
+				</section>
+
+				<section>
+					<h2>Clean Up App.tsx</h2>
+					<pre><code class="language-tsx" data-line-numbers>import { StyleSheet, View, Text } from 'react-native';
+
+export default function App() {
+  return (
+    &lt;View style={styles.container}&gt;
+      &lt;Text style={styles.title}&gt;My To-Do List&lt;/Text&gt;
+    &lt;/View&gt;
+  );
+}
+
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    paddingTop: 60,
+    paddingHorizontal: 20,
+    backgroundColor: '#f5f5f5',
+  },
+  title: {
+    fontSize: 28,
+    fontWeight: 'bold',
+    marginBottom: 20,
+  },
+});</code></pre>
+					<aside class="notes">
+						Have students replace the boilerplate with this minimal shell. They should see "My To-Do List" at the top of their screen with hot reload.
+					</aside>
+				</section>
+
+				<!-- ---- 2.2 Data Model ---- -->
+				<section>
+					<h2>Define the Data Model</h2>
+					<pre><code class="language-tsx" data-line-numbers>interface Todo {
+  id: string;
+  text: string;
+  completed: boolean;
+}</code></pre>
+					<ul>
+						<li>TypeScript gives us <strong>structure and safety</strong></li>
+						<li>Every to-do has an id, text, and completed status</li>
+					</ul>
+					<aside class="notes">
+						Emphasize how TypeScript interfaces define the shape of our data. If we try to create a Todo without an id, TypeScript will catch it.
+					</aside>
+				</section>
+
+				<section>
+					<h2>Add State</h2>
+					<pre><code class="language-tsx" data-line-numbers>import { useState } from 'react';
+
+const [todos, setTodos] = useState&lt;Todo[]&gt;([]);
+const [inputText, setInputText] = useState&lt;string&gt;('');</code></pre>
+					<ul>
+						<li><code>todos</code> — the array of to-do items</li>
+						<li><code>inputText</code> — what the user is currently typing</li>
+					</ul>
+					<aside class="notes">
+						These two pieces of state drive our entire app. When either one changes, React re-renders the component and the UI updates.
+					</aside>
+				</section>
+
+				<!-- ---- 2.3 Input Section ---- -->
+				<section>
+					<h2>Build the Input Section</h2>
+					<pre><code class="language-tsx" data-line-numbers>&lt;View style={styles.inputRow}&gt;
+  &lt;TextInput
+    style={styles.input}
+    placeholder="Add a new task..."
+    value={inputText}
+    onChangeText={setInputText}
+  /&gt;
+  &lt;TouchableOpacity style={styles.addButton} onPress={handleAddTodo}&gt;
+    &lt;Text style={styles.addButtonText}&gt;+&lt;/Text&gt;
+  &lt;/TouchableOpacity&gt;
+&lt;/View&gt;</code></pre>
+					<aside class="notes">
+						This is the input row — a text field and a button side by side. The flexDirection: 'row' style on inputRow puts them next to each other horizontally.
+					</aside>
+				</section>
+
+				<section>
+					<h2>The handleAddTodo Function</h2>
+					<pre><code class="language-tsx" data-line-numbers>const handleAddTodo = () => {
+  if (inputText.trim() === '') return;
+  const newTodo: Todo = {
+    id: Date.now().toString(),
+    text: inputText.trim(),
+    completed: false,
+  };
+  setTodos([...todos, newTodo]);
+  setInputText('');
+};</code></pre>
+					<ul>
+						<li><strong>Spread operator</strong> (<code>...todos</code>) creates a new array (immutability!)</li>
+						<li>Guard clause prevents adding empty items</li>
+						<li><code>Date.now().toString()</code> as a simple unique ID</li>
+					</ul>
+					<aside class="notes">
+						Walk through this line by line. The spread operator is key — we never mutate the existing array. We create a new one with all the old items plus the new one.
+					</aside>
+				</section>
+
+				<section>
+					<h2>Input Styles</h2>
+					<pre><code class="language-tsx" data-line-numbers>inputRow: {
+  flexDirection: 'row',
+  marginBottom: 20,
+},
+input: {
+  flex: 1,
+  borderWidth: 1,
+  borderColor: '#ccc',
+  borderRadius: 8,
+  padding: 12,
+  fontSize: 16,
+  backgroundColor: '#fff',
+},
+addButton: {
+  backgroundColor: '#4CAF50',
+  width: 50,
+  marginLeft: 10,
+  borderRadius: 8,
+  justifyContent: 'center',
+  alignItems: 'center',
+},
+addButtonText: {
+  color: '#fff',
+  fontSize: 24,
+  fontWeight: 'bold',
+},</code></pre>
+					<aside class="notes">
+						Point out flexDirection: 'row' which puts the input and button side by side. flex: 1 on the input makes it take up all available space.
+					</aside>
+				</section>
+
+				<!-- ---- 2.4 Render the List ---- -->
+				<section>
+					<h2>Render the To-Do List</h2>
+					<pre><code class="language-tsx" data-line-numbers>&lt;FlatList
+  data={todos}
+  keyExtractor={(item) =&gt; item.id}
+  renderItem={({ item }) =&gt; (
+    &lt;View style={styles.todoItem}&gt;
+      &lt;Text style={[
+        styles.todoText,
+        item.completed &amp;&amp; styles.completedText,
+      ]}&gt;
+        {item.text}
+      &lt;/Text&gt;
+    &lt;/View&gt;
+  )}
+/&gt;</code></pre>
+					<aside class="notes">
+						keyExtractor tells React Native how to uniquely identify each item — important for performance. renderItem is a function that returns JSX for each item. The conditional styling with the array syntax is a common React Native pattern.
+					</aside>
+				</section>
+
+				<section>
+					<h2>Key FlatList Concepts</h2>
+					<ul>
+						<li><code>keyExtractor</code> — uniquely identifies each item (important for performance)</li>
+						<li><code>renderItem</code> — a function that returns the JSX for each item</li>
+						<li>Conditional styling: <code>[style1, condition &amp;&amp; style2]</code></li>
+					</ul>
+					<aside class="notes">
+						The conditional styling pattern is one students often find confusing at first. If item.completed is true, the completedText style gets applied. If false, it's ignored.
+					</aside>
+				</section>
+
+				<section>
+					<h2>To-Do Item Styles</h2>
+					<pre><code class="language-tsx" data-line-numbers>todoItem: {
+  flexDirection: 'row',
+  alignItems: 'center',
+  backgroundColor: '#fff',
+  padding: 16,
+  borderRadius: 8,
+  marginBottom: 10,
+},
+todoText: {
+  flex: 1,
+  fontSize: 16,
+},
+completedText: {
+  textDecorationLine: 'line-through',
+  color: '#999',
+},</code></pre>
+					<aside class="notes">
+						Each to-do item is a horizontal row with the text taking up available space. When completed, the text gets a strikethrough and turns gray.
+					</aside>
+				</section>
+
+				<!-- ---- 2.5 Toggle & Delete ---- -->
+				<section>
+					<h2>Toggle &amp; Delete</h2>
+					<pre><code class="language-tsx" data-line-numbers>const handleToggleTodo = (id: string) => {
+  setTodos(todos.map((todo) =>
+    todo.id === id ? { ...todo, completed: !todo.completed } : todo
+  ));
+};
+
+const handleDeleteTodo = (id: string) => {
+  setTodos(todos.filter((todo) => todo.id !== id));
+};</code></pre>
+					<ul>
+						<li><code>.map()</code> to transform one item without mutating the original</li>
+						<li><code>.filter()</code> to remove an item without mutating the original</li>
+					</ul>
+					<aside class="notes">
+						These two array methods — map and filter — are your bread and butter for working with state arrays in React. map creates a new array with one item changed. filter creates a new array with one item removed. Neither mutates the original.
+					</aside>
+				</section>
+
+				<section>
+					<h2>Wire Up the Buttons</h2>
+					<pre><code class="language-tsx" data-line-numbers>renderItem={({ item }) =&gt; (
+  &lt;View style={styles.todoItem}&gt;
+    &lt;TouchableOpacity
+      style={{ flex: 1 }}
+      onPress={() =&gt; handleToggleTodo(item.id)}
+    &gt;
+      &lt;Text style={[
+        styles.todoText,
+        item.completed &amp;&amp; styles.completedText,
+      ]}&gt;
+        {item.text}
+      &lt;/Text&gt;
+    &lt;/TouchableOpacity&gt;
+    &lt;TouchableOpacity onPress={() =&gt; handleDeleteTodo(item.id)}&gt;
+      &lt;Text style={styles.deleteButton}&gt;✕&lt;/Text&gt;
+    &lt;/TouchableOpacity&gt;
+  &lt;/View&gt;
+)}</code></pre>
+					<aside class="notes">
+						The arrow functions in onPress are important — they let us pass the item's id as an argument. Without the arrow function, the function would fire immediately on render instead of on press.
+					</aside>
+				</section>
+
+				<!-- ---- 2.6 Test & Recap ---- -->
+				<section>
+					<h2>Let's Test It! ✅</h2>
+					<ul>
+						<li>Type a task → press <strong>+</strong> → item appears in the list</li>
+						<li>Tap an item → text gets a <strong>strikethrough</strong> (toggled complete)</li>
+						<li>Tap <strong>✕</strong> → item is removed</li>
+					</ul>
+					<aside class="notes">
+						Walk through the app flow with students. Have them try all three interactions. This is a good time to help anyone who is stuck.
+					</aside>
+				</section>
+
+				<section>
+					<h2>What We Just Used</h2>
+					<ul>
+						<li><strong>Components and JSX</strong> for building the UI</li>
+						<li><strong>Props</strong> for passing data into <code>renderItem</code></li>
+						<li><strong>State</strong> (<code>useState</code>) for managing the to-do list and input</li>
+						<li><strong>TypeScript interfaces</strong> for defining the shape of a to-do</li>
+						<li><strong>Core components:</strong> View, Text, TextInput, FlatList, TouchableOpacity</li>
+						<li><strong>Flexbox layout</strong> and <code>StyleSheet</code> for styling</li>
+					</ul>
+					<aside class="notes">
+						This is a great recap slide. Every concept from Part 1 showed up in our app. That's the beauty of this project — it's small but touches everything.
+					</aside>
+				</section>
+
+				<!-- ============ PART 3: WRAP-UP ============ -->
+				<section class="center-slide">
+					<h1>Wrap-Up</h1>
+				</section>
+
+				<section>
+					<h2>What We Covered Today</h2>
+					<ul>
+						<li>React Native lets you build native mobile apps with TypeScript/JavaScript</li>
+						<li>Expo streamlines the development workflow</li>
+						<li>Core React concepts: components, props, state, and JSX</li>
+						<li>React Native core components and Flexbox-based styling</li>
+						<li>Built a functional To-Do List app from scratch</li>
+					</ul>
+				</section>
+
+				<section>
+					<h2>Where to Go From Here</h2>
+					<ul>
+						<li><strong>Navigation</strong> — React Navigation library for multi-screen apps</li>
+						<li><strong>Persistent storage</strong> — AsyncStorage or SQLite for saving data locally</li>
+						<li><strong>API integration</strong> — <code>fetch</code> or Axios for pulling data from remote servers</li>
+						<li><strong>Animations</strong> — React Native's Animated API or Reanimated library</li>
+						<li><strong>Publishing</strong> — Expo Application Services (EAS) for building and submitting to app stores</li>
+					</ul>
+				</section>
+
+				<section>
+					<h2>Resources</h2>
+					<ul>
+						<li><a href="https://reactnative.dev/docs/getting-started" target="_blank">React Native Documentation</a></li>
+						<li><a href="https://docs.expo.dev/" target="_blank">Expo Documentation</a></li>
+						<li><a href="https://www.typescriptlang.org/docs/handbook/" target="_blank">TypeScript Handbook</a></li>
+						<li><a href="https://www.reactnative.express/" target="_blank">React Native Express</a> — a walkthrough-style learning guide</li>
+					</ul>
+				</section>
+
+				<section class="center-slide">
+					<h2>Questions?</h2>
+				</section>
+
+			</div>
+		</div>
+
+		<script src="dist/reveal.js"></script>
+		<script src="plugin/notes/notes.js"></script>
+		<script src="plugin/markdown/markdown.js"></script>
+		<script src="plugin/highlight/highlight.js"></script>
+		<script>
+			Reveal.initialize({
+				hash: true,
+				width: 960,
+				height: 700,
+				plugins: [ RevealMarkdown, RevealHighlight, RevealNotes ]
+			});
+		</script>
+	</body>
+</html>
