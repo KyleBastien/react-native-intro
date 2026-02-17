@@ -42,6 +42,7 @@ tmp/**
 .sass-cache
 
 # local env files
+.env
 .env*.local
 
 # typescript
